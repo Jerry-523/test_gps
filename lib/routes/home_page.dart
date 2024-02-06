@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Consumer<PostosController>(
         builder: (context, local, child) {
           String mensagem = local.erro == ''
-              ? 'Latitude: ${local.lat} | Longitude: ${local.long}'
+              ? 'Latitude:\t\t\t\t\t ${local.lat}  \nLongitude:\t\t ${local.long}'
               : local.erro;
 
           return Center(child: Text(mensagem));
