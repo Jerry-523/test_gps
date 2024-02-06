@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'postos_controller.dart';
+import 'routes/home_page.dart';
+import 'controllers/postos_controller.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider<PostosController>(
+      create: (context) => PostosController(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,34 +27,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Geolocalizador"),
-      ),
-      body: ChangeNotifierProvider<PostosController>(
-        create: (context) => PostosController(),
-        child: Builder(builder: (context) {
-          final local = context.watch<PostosController>();
-
-          String mensagem = local.erro == ''
-            ? 'Latitude: ${local.lat} | Longitude: ${local.long}'
-            : local.erro;
-
-          return Center(child: Text(mensagem));
-        }),
-      ),
-    );
-  }
-}
